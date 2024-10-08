@@ -25,34 +25,39 @@
 
 ## Project setup
 
-```bash
-$ pnpm install
+```shell
+pnpm install
+```
+
+## Prepare env
+```shell
+cp .env.example .env
 ```
 
 ## Compile and run the project
 
-```bash
+```shell
 # development
-$ pnpm run start
+pnpm run start
 
 # watch mode
-$ pnpm run start:dev
+pnpm run start:dev
 
 # production mode
-$ pnpm run start:prod
+pnpm run start:prod
 ```
 
 ## Run tests
 
-```bash
+```shell
 # unit tests
-$ pnpm run test
+pnpm run test
 
 # e2e tests
-$ pnpm run test:e2e
+pnpm run test:e2e
 
 # test coverage
-$ pnpm run test:cov
+pnpm run test:cov
 ```
 
 ## Resources
