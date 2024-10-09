@@ -3,6 +3,12 @@ import { ConfigModule } from '@nestjs/config';
 import { ItemModule } from './modules/item/item.module';
 import { CacheModule } from '@nestjs/cache-manager';
 import * as redisStore from 'cache-manager-redis-store';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { DataSource } from 'typeorm';
+import { typeOrmConfig } from './db/ormconfig';
+
+import * as dotenv from 'dotenv';
+dotenv.config();
 
 @Module({
   imports: [
@@ -20,7 +26,10 @@ import * as redisStore from 'cache-manager-redis-store';
       no_ready_check: true,
       store: redisStore,
     }),
+    TypeOrmModule.forRoot(typeOrmConfig),
     ItemModule,
   ],
 })
-export class AppModule {}
+export class AppModule {
+  constructor(private dataSource: DataSource) {}
+}

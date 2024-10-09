@@ -1,5 +1,5 @@
 import { IsInt, IsString, Min } from 'class-validator';
-import type { ItemCurrency, ItemListFetchProps } from '../types';
+import type { ItemCurrency, ItemListFetchProps } from './types';
 import { OneOf } from '~/shared/validators/oneOf';
 import { Transform } from 'class-transformer';
 
@@ -22,7 +22,7 @@ const currencies: Array<ItemCurrency> = [
   'USD',
 ];
 
-export class ItemListPropsEntity implements ItemListFetchProps {
+export class ItemListPropsValidator implements ItemListFetchProps {
   @Transform(({ value }) => (value ? Number(value) : undefined))
   @IsInt()
   @Min(1)

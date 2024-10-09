@@ -2,7 +2,7 @@ import { HttpException, Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { ItemList, ItemListFetchProps } from './types';
 import { withQuery } from 'ufo';
-import { DetailedItems } from './entities/detailed-list.entity';
+import { DetailedItems } from './detailed-list.transformer';
 import { Cache } from '@nestjs/cache-manager';
 @Injectable()
 export class ItemService {
