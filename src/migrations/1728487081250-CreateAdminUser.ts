@@ -1,5 +1,5 @@
 import { MigrationInterface, QueryRunner } from 'typeorm';
-import { User } from '~/modules/item/user.entity';
+import { User } from '~/entities/user.entity';
 import { createHash } from '~/shared/utils/create-hash';
 
 require('dotenv').config();

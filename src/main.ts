@@ -6,7 +6,6 @@ const port: number = process.env.APP_PORT ? Number(process.env.APP_PORT) : 3000;
 const host: string = process.env.APP_HOST ?? 'localhost';
 
 async function bootstrap() {
-  console.log(process.env.APP_HOST);
   const app = await NestFactory.create(AppModule);
   app.useGlobalPipes(
     new ValidationPipe({
