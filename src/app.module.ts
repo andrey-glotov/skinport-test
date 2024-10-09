@@ -6,8 +6,7 @@ import { typeOrmConfig } from '~/configs/ormconfig';
 import { redisConfig } from '~/configs/redis-config';
 import { ItemModule } from '~/modules/item/item.module';
 import { AuthModule } from '~/modules/auth/auth.module';
-import { JwtModule } from '@nestjs/jwt';
-import { jwtConfig } from '~/configs/jwt-config';
+import { CartModule } from './modules/cart/cart.module';
 
 @Module({
   imports: [
@@ -19,6 +18,7 @@ import { jwtConfig } from '~/configs/jwt-config';
     CacheModule.register(redisConfig),
     TypeOrmModule.forRoot(typeOrmConfig),
     ItemModule,
+    CartModule,
     //  AuthModule,
   ],
 })
