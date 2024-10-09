@@ -1,20 +1,6 @@
-export type ItemCurrency =
-  | 'AUD'
-  | 'BRL'
-  | 'CAD'
-  | 'CHF'
-  | 'CNY'
-  | 'CZK'
-  | 'DKK'
-  | 'EUR'
-  | 'GBP'
-  | 'HRK'
-  | 'NOK'
-  | 'PLN'
-  | 'RUB'
-  | 'SEK'
-  | 'TRY'
-  | 'USD';
+import { Currency } from '~/shared/types/currency';
+
+export type ItemCurrency = keyof typeof Currency;
 
 export type Item = {
   market_hash_name: string;

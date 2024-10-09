@@ -2,8 +2,6 @@ import { MigrationInterface, QueryRunner } from 'typeorm';
 import { User } from '~/entities/user.entity';
 import { createHash } from '~/shared/utils/create-hash';
 
-require('dotenv').config();
-
 export class CreateAdminUser1728487081250 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     const user = await queryRunner.manager
