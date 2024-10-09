@@ -22,7 +22,7 @@ export class CreateAdminUser1728487081250 implements MigrationInterface {
             username: process.env.APP_USERNAME,
             password: createHash(
               process.env.APP_PASSWORD,
-              process.env.APP_SECRET_KEY,
+              process.env.APP_PASSWORD_SECRET_KEY,
             ),
           },
         ])
