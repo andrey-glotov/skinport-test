@@ -3,27 +3,32 @@ import { Credentials } from './credentials.validator';
 import { Token } from './token.validator';
 import { createHash } from '~/shared/utils/create-hash';
 import { ConfigService } from '@nestjs/config';
-import { userRepository } from '~/entities/user.entity';
 import { JwtService } from '@nestjs/jwt';
+import { InjectRepository } from '@nestjs/typeorm';
+import { User } from '~/entities/user.entity';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class AuthService {
   constructor(
     private readonly configService: ConfigService,
     private jwtService: JwtService,
+    @InjectRepository(User)
+    private userRepository: Repository<User>,
   ) {}
 
-  async signIn(data: Credentials): Promise<Token> {
-    const user = await userRepository.findOneByOrFail({
-      username: data.username,
-    });
-
+  async signIn({ username, ...data }: Credentials): Promise<Token> {
     const password = createHash(
       data.password,
       this.configService.get<string>('APP_PASSWORD_SECRET_KEY'),
     );
 
-    if (user.password !== password) {
+    const user = await this.userRepository.findOneBy({
+      username,
+      password,
+    });
+
+    if (!user) {
       throw new UnauthorizedException();
     }
 

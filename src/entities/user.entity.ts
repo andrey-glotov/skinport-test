@@ -1,6 +1,5 @@
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
 import { Wallet } from './wallet.entity';
-import dataSource from '~/configs/data-source';
 
 @Entity()
 export class User {
@@ -16,5 +15,3 @@ export class User {
   @OneToMany(() => Wallet, (wallet) => wallet.user)
   wallet: Wallet;
 }
-
-export const userRepository = {} as any;

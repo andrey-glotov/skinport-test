@@ -21,5 +21,5 @@ export class Wallet {
   balance: number;
 
   @ManyToOne(() => User, (user) => user.wallet)
-  user: User;
+  user: number;
 }

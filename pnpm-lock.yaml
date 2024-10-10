@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@float-toolkit/core':
+        specifier: ^2.1.0
+        version: 2.1.0
       '@nestjs/cache-manager':
         specifier: 2.2.2
         version: 2.2.2(@nestjs/common@10.0.0(class-transformer@0.5.1)(class-validator@0.14.1)(reflect-metadata@0.2.0)(rxjs@7.8.1))(@nestjs/core@10.0.0)(cache-manager@5.7.6)(rxjs@7.8.1)
@@ -348,6 +351,9 @@ packages:
   '@eslint/js@8.42.0':
     resolution: {integrity: sha512-6SWlXpWU5AvId8Ac7zjzmIOqMOba/JWY8XZ4A7q7Gn1Vlfg/SFFIlrtHXt9nPn4op9ZPAkl91Jao+QQv3r/ukw==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
+
+  '@float-toolkit/core@2.1.0':
+    resolution: {integrity: sha512-ygN1dejy9+D7IgY8reCSdzQcLkc1sQh3huIMbM2ga8fTl8AHJ+rbb9581qYEtBhpmGBhD8uUym/XNbz+mPXa9Q==}
 
   '@humanwhocodes/config-array@0.11.14':
     resolution: {integrity: sha512-3T8LkOmg45BV5FICb15QQMsyUSWrQ8AygVfC7ZG32zOalnqrilm018ZVCw0eapXux8FtA33q8PSRSstjee3jSg==}
@@ -3408,6 +3414,8 @@ snapshots:
       - supports-color
 
   '@eslint/js@8.42.0': {}
+
+  '@float-toolkit/core@2.1.0': {}
 
   '@humanwhocodes/config-array@0.11.14':
     dependencies:

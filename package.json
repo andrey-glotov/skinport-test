@@ -20,10 +20,12 @@
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "prepare:env": "cp .env.example .env",
     "typeorm": "typeorm-ts-node-esm",
-    "migrate:up": "npx typeorm migration:run -d ./dist/configs/data-source.js",
-    "migrate:down": "npx typeorm migration:revert -d ./dist/configs/data-source.js"
+    "typeorm:sync-schemas": "typeorm schema:sync -d ./dist/configs/data-source.js",
+    "migrate:up": "pnpm run typeorm migration:run -d ./dist/configs/data-source.js",
+    "migrate:down": "pnpm run typeorm migration:revert -d ./dist/configs/data-source.js"
   },
   "dependencies": {
+    "@float-toolkit/core": "2.1.0",
     "@nestjs/cache-manager": "2.2.2",
     "@nestjs/common": "10.0.0",
     "@nestjs/config": "3.2.3",

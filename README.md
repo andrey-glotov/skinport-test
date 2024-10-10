@@ -37,6 +37,12 @@ cp .env.example .env
 ## Compile and run the project
 
 ```shell
+# prepare database
+pnpm run typeorm:sync-schemas
+
+# run migrations
+pnpm run migrate:up
+
 # development
 pnpm run start
 

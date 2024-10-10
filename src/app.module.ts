@@ -14,12 +14,13 @@ import { CartModule } from './modules/cart/cart.module';
       envFilePath: '.env',
       isGlobal: true,
       cache: true,
+      load: [],
     }),
     CacheModule.register(redisConfig),
     TypeOrmModule.forRoot(typeOrmConfig),
     ItemModule,
     CartModule,
-    //  AuthModule,
+    AuthModule,
   ],
 })
 export class AppModule {}
