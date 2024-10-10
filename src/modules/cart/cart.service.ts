@@ -10,6 +10,7 @@ export class CartService {
   ) {}
 
   async makeOrder(cart: CartData, userId: number): Promise<{ status: 'ok' }> {
+    console.log(await this.cartProcessingQueue.clean(1000, 1000));
     await this.cartProcessingQueue.add(
       'process-order',
       {
@@ -17,9 +18,10 @@ export class CartService {
         userId,
       },
       {
-        repeat: {
-          every: 1000 * 60 * 5,
-          count: 10,
+        attempts: 10,
+        backoff: {
+          type: 'exponential',
+          delay: 1000 * 30,
         },
       },
     );
