@@ -1,9 +1,11 @@
 import { HttpException, Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { ItemList, ItemListFetchProps } from './types';
+import { DetailedItemList, ItemList, ItemListFetchProps } from './types';
 import { withQuery } from 'ufo';
 import { DetailedItems } from './detailed-list.transformer';
 import { Cache } from '@nestjs/cache-manager';
+import { ItemListPropsValidator } from '~/modules/item/item-list-props.validator';
+import { Cron, CronExpression } from '@nestjs/schedule';
 @Injectable()
 export class ItemService {
   constructor(
@@ -28,10 +30,11 @@ export class ItemService {
     return data.json();
   }
 
-  async getList(params: ItemListFetchProps): Promise<ItemList> {
+  async getList(): Promise<DetailedItemList> {
+    const params = new ItemListPropsValidator();
     try {
       const key = `/items/${JSON.stringify(params)}`;
-      const cache = await this.cacheManager.get<ItemList>(key);
+      const cache = await this.cacheManager.get<DetailedItemList>(key);
       if (cache) {
         return cache;
       }

@@ -7,6 +7,7 @@ import { redisConfig } from '~/configs/redis-config';
 import { ItemModule } from '~/modules/item/item.module';
 import { AuthModule } from '~/modules/auth/auth.module';
 import { CartModule } from '~/modules/cart/cart.module';
+import { ScheduleModule } from '@nestjs/schedule';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { CartModule } from '~/modules/cart/cart.module';
     }),
     CacheModule.register(redisConfig),
     TypeOrmModule.forRoot(typeOrmConfig),
+    ScheduleModule.forRoot(),
     ItemModule,
     CartModule,
     AuthModule,

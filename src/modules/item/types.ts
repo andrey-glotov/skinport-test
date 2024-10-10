@@ -23,6 +23,8 @@ export type ItemListFetchProps = {
   app_id: number;
 };
 
+export type DetailedItemList = Array<DetailedItem>;
+
 export type DetailedItem = Item & {
   tradable_min_price: number;
 };

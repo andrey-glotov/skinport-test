@@ -5,6 +5,10 @@ import { Transform } from 'class-transformer';
 import { Currency } from '~/shared/types/currency';
 
 export class ItemListPropsValidator implements ItemListFetchProps {
+  constructor(props?: Partial<ItemListFetchProps>) {
+    Object.assign(this, props);
+  }
+
   @Transform(({ value }) => (value ? Number(value) : undefined))
   @IsInt()
   @Min(1)
