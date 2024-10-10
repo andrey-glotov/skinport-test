@@ -10,7 +10,6 @@ export class CartService {
   ) {}
 
   async makeOrder(cart: CartData, userId: number): Promise<{ status: 'ok' }> {
-    console.log(await this.cartProcessingQueue.clean(1000, 1000));
     await this.cartProcessingQueue.add(
       'process-order',
       {
