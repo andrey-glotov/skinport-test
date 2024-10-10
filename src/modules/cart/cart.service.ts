@@ -1,41 +1,34 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { CartData } from '~/modules/cart/cart.validator';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
-import { Wallet } from '~/entities/wallet.entity';
 import * as FloatToolkit from '@float-toolkit/core';
-import { Currency } from '~/shared/types/currency';
+import { Queue } from 'bullmq';
+import { InjectQueue } from '@nestjs/bullmq';
+import { ItemsService } from '~/entities/items/items.service';
 
 const ft = new FloatToolkit(2);
 
 @Injectable()
 export class CartService {
   constructor(
-    @InjectRepository(Wallet)
-    private walletRepository: Repository<Wallet>,
+    @InjectQueue('cart-processing') private cartProcessingQueue: Queue,
+    private itemService: ItemsService,
   ) {}
-  async makeOrder(cart: CartData, userId: number): Promise<Wallet> {
-    const wallet = await this.walletRepository.findOneBy({
-      user: userId,
-      currency: Currency[cart.currency],
-    });
 
-    if (!wallet) {
-      throw new BadRequestException('Wallet not found');
-    }
+  async makeOrder(cart: CartData, userId: number): Promise<{ status: 'ok' }> {
+    await this.cartProcessingQueue.add(
+      'process-order',
+      {
+        cart,
+        userId,
+      },
+      {
+        repeat: {
+          every: 1000 * 60 * 5,
+          count: 10,
+        },
+      },
+    );
 
-    const totalPrice = cart.items.reduce<number>((accum, item) => {
-      return ft.round(accum + ft.round(item.quantity * item.price));
-    }, 0);
-    if (totalPrice > wallet.balance) {
-      throw new BadRequestException('Wallet balance is not enough');
-    }
-
-    const balanceAfterTransaction = ft.round(wallet.balance - totalPrice);
-
-    return this.walletRepository.save({
-      ...wallet,
-      balance: balanceAfterTransaction,
-    });
+    return { status: 'ok' };
   }
 }

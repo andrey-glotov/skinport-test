@@ -10,7 +10,10 @@ export class CartController {
 
   @UseGuards(AuthGuard)
   @Post('/')
-  async makeOrder(@Request() request, @Body() body: CartData): Promise<Wallet> {
+  async makeOrder(
+    @Request() request,
+    @Body() body: CartData,
+  ): Promise<{ status: 'ok' }> {
     return this.cartService.makeOrder(body, request.user.id);
   }
 }

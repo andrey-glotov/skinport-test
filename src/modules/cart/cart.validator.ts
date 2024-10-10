@@ -35,5 +35,5 @@ export class CartData {
 
   @IsString()
   @OneOf(Object.keys(Currency), { message: 'this currency is not allowed' })
-  currency: string = 'EUR';
+  currency: keyof typeof Currency = 'EUR';
 }

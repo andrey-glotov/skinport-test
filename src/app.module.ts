@@ -7,7 +7,9 @@ import { redisConfig } from '~/configs/redis-config';
 import { ItemModule } from '~/modules/item/item.module';
 import { AuthModule } from '~/modules/auth/auth.module';
 import { CartModule } from '~/modules/cart/cart.module';
-import { ScheduleModule } from '@nestjs/schedule';
+import { BullModule } from '@nestjs/bullmq';
+import { bullMqConfig } from '~/configs/bullMq-config';
+import { ItemsModule } from '~/entities/items/items.module';
 
 @Module({
   imports: [
@@ -18,10 +20,11 @@ import { ScheduleModule } from '@nestjs/schedule';
     }),
     CacheModule.register(redisConfig),
     TypeOrmModule.forRoot(typeOrmConfig),
-    ScheduleModule.forRoot(),
+    BullModule.forRoot(bullMqConfig),
     ItemModule,
     CartModule,
     AuthModule,
+    ItemsModule,
   ],
 })
 export class AppModule {}

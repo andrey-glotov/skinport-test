@@ -1,7 +1,7 @@
-import { IsInt, IsString, Min } from 'class-validator';
-import type { ItemListFetchProps } from './types';
-import { OneOf } from '~/shared/validators/oneOf';
+import { ItemCurrency, ItemListFetchProps } from '~/modules/item/types';
 import { Transform } from 'class-transformer';
+import { IsInt, IsString, Min } from 'class-validator';
+import { OneOf } from '~/shared/validators/oneOf';
 import { Currency } from '~/shared/types/currency';
 
 export class ItemListPropsValidator implements ItemListFetchProps {
@@ -16,5 +16,5 @@ export class ItemListPropsValidator implements ItemListFetchProps {
 
   @IsString()
   @OneOf(Object.keys(Currency), { message: 'this currency is not allowed' })
-  currency: ItemListFetchProps['currency'] = 'EUR';
+  currency: ItemCurrency = 'EUR';
 }
