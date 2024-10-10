@@ -1,17 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { CartData } from '~/modules/cart/cart.validator';
-import * as FloatToolkit from '@float-toolkit/core';
 import { Queue } from 'bullmq';
 import { InjectQueue } from '@nestjs/bullmq';
-import { ItemsService } from '~/entities/items/items.service';
-
-const ft = new FloatToolkit(2);
 
 @Injectable()
 export class CartService {
   constructor(
     @InjectQueue('cart-processing') private cartProcessingQueue: Queue,
-    private itemService: ItemsService,
   ) {}
 
   async makeOrder(cart: CartData, userId: number): Promise<{ status: 'ok' }> {

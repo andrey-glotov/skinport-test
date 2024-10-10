@@ -81,6 +81,7 @@ export class CartConsumer extends WorkerHost {
 
   @OnWorkerEvent('completed')
   async onCompleted(job: CartJob, result: ItemList) {
+    console.log('completed', result);
     // тут по идее можно отправлять емейл или еще что-то
   }
 }
