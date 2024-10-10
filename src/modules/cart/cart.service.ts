@@ -27,7 +27,6 @@ export class CartService {
     const totalPrice = cart.items.reduce<number>((accum, item) => {
       return ft.round(accum + ft.round(item.quantity * item.price));
     }, 0);
-
     if (totalPrice > wallet.balance) {
       throw new BadRequestException('Wallet balance is not enough');
     }
