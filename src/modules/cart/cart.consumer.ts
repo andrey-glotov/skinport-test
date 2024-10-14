@@ -2,7 +2,7 @@ import { OnWorkerEvent, Processor, WorkerHost } from '@nestjs/bullmq';
 import { Job } from 'bullmq';
 import { Item, ItemList } from '~/modules/item/types';
 import { Injectable } from '@nestjs/common';
-import { ItemsService } from '~/entities/items/items.service';
+import { ItemRepository } from '~/entities/items/item.repository';
 import { CartData } from './cart.validator';
 import { ItemListPropsValidator } from '~/entities/items/items-props.validator';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -10,8 +10,6 @@ import { Wallet } from '~/entities/wallet.entity';
 import { Repository } from 'typeorm';
 import { Currency } from '~/shared/types/currency';
 import * as FloatToolkit from '@float-toolkit/core';
-
-const ft = new FloatToolkit(2);
 
 type CartJob = Job<{
   cart: CartData;
@@ -24,7 +22,8 @@ export class CartConsumer extends WorkerHost {
   constructor(
     @InjectRepository(Wallet)
     private walletRepository: Repository<Wallet>,
-    private itemsService: ItemsService,
+    private itemsService: ItemRepository,
+    private ft: FloatToolkit,
   ) {
     super();
   }
@@ -47,14 +46,14 @@ export class CartConsumer extends WorkerHost {
     }
 
     const totalPrice = job.data.cart.items.reduce<number>((accum, item) => {
-      return ft.round(accum + ft.round(item.quantity * item.price));
+      return this.ft.round(accum + this.ft.round(item.quantity * item.price));
     }, 0);
 
     if (totalPrice > wallet.balance) {
       return { message: 'Wallet balance is not enough' };
     }
 
-    const balanceAfterTransaction = ft.round(wallet.balance - totalPrice);
+    const balanceAfterTransaction = this.ft.round(wallet.balance - totalPrice);
 
     const itemsMap = new Map<string, Item>();
     items.forEach((item) => {

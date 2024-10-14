@@ -2,14 +2,14 @@ import { Injectable } from '@nestjs/common';
 import { DetailedItemList } from './types';
 import { DetailedItems } from './detailed-list.transformer';
 import { Cache } from '@nestjs/cache-manager';
-import { ItemsService } from '~/entities/items/items.service';
+import { ItemRepository } from '~/entities/items/item.repository';
 import { ItemListPropsValidator } from '~/entities/items/items-props.validator';
 
 @Injectable()
 export class ItemService {
   constructor(
     private cacheManager: Cache,
-    private itemService: ItemsService,
+    private itemService: ItemRepository,
   ) {}
 
   async getList(): Promise<DetailedItemList> {

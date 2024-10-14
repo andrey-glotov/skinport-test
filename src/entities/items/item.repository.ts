@@ -4,7 +4,7 @@ import { withQuery } from 'ufo';
 import { ConfigService } from '@nestjs/config';
 
 @Injectable()
-export class ItemsService {
+export class ItemRepository {
   constructor(private readonly configService: ConfigService) {}
 
   private get endpointUrl(): string {

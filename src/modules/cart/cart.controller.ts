@@ -1,8 +1,7 @@
 import { Body, Controller, Post, Request, UseGuards } from '@nestjs/common';
 import { CartData } from './cart.validator';
 import { CartService } from './cart.service';
-import { AuthGuard } from '~/guards/auth.guard';
-import { Wallet } from '~/entities/wallet.entity';
+import { AuthGuard } from '~/modules/auth/auth.guard';
 
 @Controller('cart')
 export class CartController {

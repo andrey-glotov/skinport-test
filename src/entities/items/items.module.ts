@@ -1,8 +1,9 @@
 import { Module } from '@nestjs/common';
-import { ItemsService } from './items.service';
+import { ItemRepository } from './item.repository';
+import { ItemListPropsValidator } from './items-props.validator';
 
 @Module({
-  providers: [ItemsService],
-  exports: [ItemsService],
+  providers: [ItemRepository, ItemListPropsValidator],
+  exports: [ItemRepository, ItemListPropsValidator],
 })
 export class ItemsModule {}
